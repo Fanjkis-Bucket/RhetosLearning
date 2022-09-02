@@ -1,0 +1,57 @@
+﻿Module EmployeeManagment{
+
+	Entity Employee
+	{
+
+		ShortString Name { Required; }
+		ShortString VAT
+		{ 
+			Unique;
+			RegExMatch '\d{9}' "VAT must have 9 digits";
+		}
+
+		Deactivatable;
+
+	}
+
+	Entity Manager
+	{
+
+		Extends EmployeeManagment.Employee;
+
+		Integer Bonuses
+		{
+			MaxValue "10000";
+		}
+
+	}
+
+	Entity Record
+	{
+
+		Reference EmployeeId EmployeeManagment.Employee;
+
+		DateTime DateOfRecord
+		{
+			CreationTime;
+			SystemRequired;
+		}
+		ShortString Description
+		{
+			UserRequired;
+		}
+		DateTime ModifiedOn
+		{
+			ModificationTimeOf EmployeeManagment.Record.Description;
+		}
+
+
+		Logging
+		{
+			Log EmployeeManagment.Record.Description;
+			Log 
+		}
+
+	}
+
+}

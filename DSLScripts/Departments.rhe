@@ -1,0 +1,28 @@
+﻿Module DepartmentsManagment{
+		
+	Entity Department
+	{
+		ShortString Code
+		{ 
+			SystemRequired;
+			AutoCode;
+			DefaultValue ' item => "tmp++"';
+			DenyUserEdit;
+		}
+		ShortString Name
+		{
+			UserRequired;
+			MaxLength '40';
+		}
+		
+	}
+
+	Entity DepartmentEmployee
+	{
+
+		Reference EmployeeId  EmployeeManagment.Employee;
+		Reference DeparmentId DepartmentsManagment.Department;
+
+	}
+	
+}
