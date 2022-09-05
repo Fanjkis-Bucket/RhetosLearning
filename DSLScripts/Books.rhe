@@ -37,6 +37,11 @@
         Integer AgeTo { Required; }
         IntegerRange AgeFrom AgeTo;
 
+        Logging
+        {
+            AllProperties;
+        }
+
     }
 
    Entity ForeignBook
@@ -46,6 +51,11 @@
 
         ShortString OriginalLanguage;
         Reference Translator Bookstore.Person;
+
+        Logging
+        {
+            AllProperties;
+        }
 
     }
 
@@ -57,6 +67,9 @@
             Unique;
             Required;
         }
+
+        ItemFilter InvalidTopicForBook 'item => item.Name.Contains("Death")';
+        LockProperty Name.InvalidTopicForBook ' Name of Topic shouldnt be Death ';
 
     }
 

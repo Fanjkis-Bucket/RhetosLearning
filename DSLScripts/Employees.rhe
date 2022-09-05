@@ -22,6 +22,7 @@
 		Integer Bonuses
 		{
 			MaxValue "10000";
+			MinValue "0";
 		}
 
 	}
@@ -48,7 +49,7 @@
 		Logging
 		{
 			Log EmployeeManagment.Record.Description;
-			Log 
+			Log EmployeeManagment.Record.EmployeeId;
 		}
 
 	}
