@@ -8,7 +8,6 @@
       }
       ShortString Title
       { 
-
           Required; 
 
       }
@@ -101,7 +100,7 @@
 
         Reference Book
         {
-          
+          Detail;
         }
         Reference Topic 
         { 
@@ -116,11 +115,11 @@
 
     "
         SELECT 
-        bk.id,
+        bk.Id,
         NumberOfTopics = COUNT(bt.TopicID)
         from Bookstore.Book bk
         JOIN Bookstore.BookTopic bt ON bt.BookID = bk.ID
-        GROUP BY bk.ID
+        GROUP BY bk.Id
     "
     {
         Extends Bookstore.Book;
