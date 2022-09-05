@@ -45,7 +45,6 @@
 			ModificationTimeOf EmployeeManagment.Record.Description;
 		}
 
-
 		Logging
 		{
 			Log EmployeeManagment.Record.Description;
