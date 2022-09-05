@@ -20,7 +20,7 @@
 	Entity DepartmentEmployee
 	{
 
-		Reference Employee EmployeeManagment.Employee;
+		Reference Employee EmployeeManagment.Employee { Detail; }
 		Reference Department;
 
 	}

@@ -13,10 +13,33 @@
       }
       Integer NumberOfPages;
       Reference Author Bookstore.Person;
+      Reference Genre GenreManagment.Genre;
 
       ItemFilter CommonMisspelling 'book => book.Title.Contains("curiousity")';
       InvalidData CommonMisspelling 'It is not allowed to enter misspelled word "curiousity".';
 
+      
+      ItemFilter ForeignAuthorWithHororBook 'item => item.Genre.Name.Contains("Horror") && item.Extension_ForeignBook.ID != null';
+
+      ComposableFilterBy Book '(query, repository, parameter) => 
+      {
+          var filter = query.Where(item => item.Extension_ChildrensBook.AgeTo > 10);
+          return filter;
+      }';
+
+
+      FilterBy Search '(repository, parameter) =>
+      {
+          var query = repository.Bookstore.Book.Query(item =>  item.Extension.ChildrensBook.AgeTo < parameter.AgeRestricted);
+          
+          if(parameter.ForeignBookY == true)
+          {
+              query = query.Where(item => item.Extension_ForeignBook.ID != null);
+          }
+
+          return query.ToSimple().ToArray();
+
+      }';
 
       Logging;
 
@@ -134,6 +157,14 @@
         Take Title;
         Take 'Author.Name';
         Take 'Extension_NumberOfBooksByTopic.NumberOfTopics';
+
+    }
+
+
+    Parameter Search
+    {
+        Integer AgeRestricted;
+        Bool ForeignBookY;
 
     }
 
