@@ -6,7 +6,12 @@
       {
           Unique; 
       }
-      ShortString Title { Required; }
+      ShortString Title
+      { 
+
+          Required; 
+
+      }
       Integer NumberOfPages;
       Reference Author Bookstore.Person;
 
@@ -15,16 +20,27 @@
 
 
       Logging;
+
    }
 
    Entity Person;
    ShortString Person.Name;
 
+
    Entity Comment
     {
-        Reference Book { Detail; }
-        LongString Text { Required; }
-        DateTime CreationDate { CreationTime; }
+        Reference Book 
+        {     
+            Detail;         
+        }
+        LongString Text
+        {            
+            Required;        
+        }
+        DateTime CreationDate 
+        {
+            CreationTime; 
+        }
 
     }
 
@@ -33,8 +49,14 @@
 
         Extends Bookstore.Book;
 
-        Integer AgeFrom { Required; }
-        Integer AgeTo { Required; }
+        Integer AgeFrom
+        { 
+            Required; 
+        }
+        Integer AgeTo
+        {         
+            Required;       
+        }
         IntegerRange AgeFrom AgeTo;
 
         Logging
@@ -77,9 +99,44 @@
    Entity BookTopic
     {
 
-        Reference Book { Detail; }
-        Reference Topic { Required; }
+        Reference Book
+        {
+          
+        }
+        Reference Topic 
+        { 
+            Required; 
+        }
 
         UniqueMultiple 'Book Topic';
     }
+
+
+    SqlQueryable NumberOfBooksByTopic
+
+    "
+        SELECT 
+        bk.id,
+        NumberOfTopics = COUNT(bt.TopicID)
+        from Bookstore.Book bk
+        JOIN Bookstore.BookTopic bt ON bt.BookID = bk.ID
+        GROUP BY bk.ID
+    "
+    {
+        Extends Bookstore.Book;
+        Integer NumberOfTopics;
+        
+    }
+
+
+    Browse BookGrid Bookstore.Book
+    {
+
+        Take Title;
+        Take 'Author.Name';
+        Take 'Extension_NumberOfBooksByTopic.NumberOfTopics';
+
+    }
+
+    
 }

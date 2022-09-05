@@ -1,0 +1,24 @@
+﻿Module GenreManagment{
+
+	Entity Genre
+	{
+
+		ShortString Name
+		{
+			Required;
+		}
+		ShortString Description
+		{ 
+			Required; 
+		}
+
+	}
+
+	Entity GenreBook
+	{
+
+		Reference Books Bookstore.Book;
+		Reference Genre;
+
+	}
+}

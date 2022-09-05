@@ -20,8 +20,8 @@
 	Entity DepartmentEmployee
 	{
 
-		Reference EmployeeId  EmployeeManagment.Employee;
-		Reference DeparmentId DepartmentsManagment.Department;
+		Reference Employee EmployeeManagment.Employee;
+		Reference Department;
 
 	}
 	
