@@ -1,3 +1,4 @@
+using Microsoft.OpenApi.Models;
 using Rhetos;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,10 +15,17 @@ void ConfigureRhetosHostBuilder(IServiceProvider serviceProvider, IRhetosHostBui
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+    {
+       
+    });
 builder.Services.AddRhetosHost(ConfigureRhetosHostBuilder)
     .AddAspNetCoreIdentityUser()
-    .AddHostLogging();
+    .AddHostLogging()
+    .AddRestApi(x => 
+    {
+  
+    });
 
 var app = builder.Build();
 
@@ -25,7 +33,10 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        
+    });
 }
 
 app.UseHttpsRedirection();

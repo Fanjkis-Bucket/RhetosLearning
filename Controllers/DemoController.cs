@@ -65,7 +65,6 @@ public class DemoController : ControllerBase
     {
 
         var query = _context.Repository.Bookstore.Book.Query().Select(book => book.Title + '-' + book.Author.Name);
-        Console.WriteLine(query.ToString());
 
         return query.ToList();
     }
@@ -82,6 +81,14 @@ public class DemoController : ControllerBase
             _context.Repository.Bookstore.Book.Insert(new Book { Title = title, Code = random.Next(10000).ToString() });
             --numberOfBooks;
         }
+    }
+
+    [HttpGet]
+    public void GenerateEmployeesActionRhetos(int NumberOfEmployeesToInsert)
+    {
+        var actionRhetos = new EmployeeManagment.InsertMultipleEmployees { NumberOfEmployees = NumberOfEmployeesToInsert };
+        _context.Repository.EmployeeManagment.InsertMultipleEmployees.Execute(actionRhetos);
+
     }
 
 

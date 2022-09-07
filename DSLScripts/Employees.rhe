@@ -54,4 +54,27 @@
 
 	}
 
+
+	Action InsertMultipleEmployees 
+	'(parameter, repository, userInfo) =>{
+
+
+		while(parameter.NumberOfEmployees != 0)
+
+			{
+			
+			Random random = new Random();
+			string newName = "Employee " + parameter.NumberOfEmployees;
+			var newEmployee = new Employee { Name = newName, VAT = random.Next(100000000,999999999)ToString(), Activate = true };
+
+			repository.Employee.Insert(newEmployee);
+
+			}
+
+		}'
+
+	{
+		Integer NumberOfEmployees;
+	}
+
 }
