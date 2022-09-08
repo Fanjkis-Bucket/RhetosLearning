@@ -54,6 +54,27 @@
 
 	}
 
+	SqlView RecordsByDeparments 
+		"
+			SELECT demp.Name AS 'Deparment' ,empl.Name AS 'Employee', record.Description
+			FROM EmployeeManagment.Record record
+			JOIN EmployeeManagment.Employee empl ON empl.ID = record.EmployeeIdID
+			JOIN DepartmentsManagment.DepartmentEmployee dmempl ON dmempl.EmployeeId = empl.ID
+			JOIN DepartmentsManagment.Department demp ON demp.ID = dmempl.DepartmentID;
+		"
+		{
+			AutodetectSqlDependencies;
+		}
+
+	SqlQueryable CountRecordsByDeparment
+	"
+		SELECT Deparment, COUNT(Employee) AS 'Number of Employees', COUNT(Description) AS 'Number of Records' 
+		FROM EmployeeManagment.RecordsByDeparments
+		GROUP BY Deparment;
+	"
+	{
+		AutodetectSqlDependencies;
+	}
 
 	Action InsertMultipleEmployees 
 	'(parameter, repository, userInfo) =>{
@@ -64,10 +85,11 @@
 			{
 			
 			Random random = new Random();
+			string newVAT = random.Next(100000000,999999999).ToString();
 			string newName = "Employee " + parameter.NumberOfEmployees;
-			var newEmployee = new Employee { Name = newName, VAT = random.Next(100000000,999999999)ToString(), Activate = true };
+			var newEmployee = new Employee { Name = newName, VAT = newVAT};
 
-			repository.Employee.Insert(newEmployee);
+			repository.EmployeeManagment.Employee.Insert(newEmployee);
 
 			}
 
