@@ -29,7 +29,7 @@
 
 	Entity Record
 	{
-
+		MonitoredRecords;
 		Reference EmployeeId EmployeeManagment.Employee;
 
 		DateTime DateOfRecord
@@ -44,12 +44,6 @@
 		DateTime ModifiedOn
 		{
 			ModificationTimeOf EmployeeManagment.Record.Description;
-		}
-
-		Logging
-		{
-			Log EmployeeManagment.Record.Description;
-			Log EmployeeManagment.Record.EmployeeId;
 		}
 
 	}

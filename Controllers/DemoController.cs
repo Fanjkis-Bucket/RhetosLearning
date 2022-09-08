@@ -102,7 +102,12 @@ public class DemoController : ControllerBase
     public void ChangeTitleOfABook(String oldTitle, String newTitle)
     {
         var book = _context.Repository.Bookstore.Book.Query().Where(bk => bk.Title.Equals(oldTitle)).FirstOrDefault();
-
+        
+        if(book != null)
+        {
+            book.Title = newTitle;
+            _context.Repository.Bookstore.Book.Update(book);
+        }
     }
 
 
