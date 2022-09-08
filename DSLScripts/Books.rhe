@@ -2,6 +2,8 @@
 {
    Entity Book
    {
+
+      
       ShortString Code
       {
           Unique; 
@@ -41,8 +43,6 @@
 
       }';
 
-      Logging;
-
    }
 
    Entity Person;
@@ -63,7 +63,6 @@
         {
             CreationTime; 
         }
-
     }
 
    Entity ChildrensBook

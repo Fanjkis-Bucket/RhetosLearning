@@ -15,16 +15,19 @@ void ConfigureRhetosHostBuilder(IServiceProvider serviceProvider, IRhetosHostBui
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c =>
+builder.Services.AddSwaggerGen(o =>
     {
-       
+         o.CustomSchemaIds(type => type.ToString());
+         o.SwaggerDoc("rhetos", new OpenApiInfo { Title = "Rhetos REST API", Version = "v1" });
+         o.SwaggerDoc("Common", new OpenApiInfo { Title = "Common REST API", Version = "v1" });
     });
 builder.Services.AddRhetosHost(ConfigureRhetosHostBuilder)
     .AddAspNetCoreIdentityUser()
     .AddHostLogging()
-    .AddRestApi(x => 
+    .AddRestApi(o => 
     {
-  
+        o.BaseRoute = "rest";
+        o.GroupNameMapper = (conceptInfo, controller, oldName) => "rhetos";
     });
 
 var app = builder.Build();
@@ -35,7 +38,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
-        
+        c.SwaggerEndpoint("/swagger/rhetos/swagger.json", "Rhetos REST API");
+        c.SwaggerEndpoint("/swagger/Common/swagger.json", "Common REST API");
     });
 }
 

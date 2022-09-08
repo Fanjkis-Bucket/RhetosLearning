@@ -9,7 +9,7 @@ using Rhetos.Processing.DefaultCommands;
 using Rhetos.Utilities;
 using System.Collections;
 
-[Route("Demo/[action]")]
+[Route("/rest/Book/[action]")]
 public class DemoController : ControllerBase
 {
     private readonly IProcessingEngine processingEngine;
@@ -45,7 +45,7 @@ public class DemoController : ControllerBase
     }
 
     [HttpGet]
-    public IEnumerable GetListOfBooks()
+    public ActionResult<IEnumerable<Book>> GetListOfBooks()
     {
  
         return _context.Repository.Bookstore.Book.Load().ToList();
@@ -88,6 +88,20 @@ public class DemoController : ControllerBase
     {
         var actionRhetos = new EmployeeManagment.InsertMultipleEmployees { NumberOfEmployees = NumberOfEmployeesToInsert };
         _context.Repository.EmployeeManagment.InsertMultipleEmployees.Execute(actionRhetos);
+
+    }
+
+    [HttpGet]
+    public ActionResult<IEnumerable<Book>> GetBookListFilter(String title)
+    {
+        var listbooks = _context.Repository.Bookstore.Book.Query().Where(bk => bk.Title.Contains(title)).ToList();
+        return listbooks;
+    }
+
+    [HttpPost]
+    public void ChangeTitleOfABook(String oldTitle, String newTitle)
+    {
+        var book = _context.Repository.Bookstore.Book.Query().Where(bk => bk.Title.Equals(oldTitle)).FirstOrDefault();
 
     }
 
