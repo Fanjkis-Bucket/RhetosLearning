@@ -15,31 +15,31 @@ namespace BookStore.Service.RhetosEXT
 
             var concepts = new List<IConceptInfo>();
 
-            if (conceptInfo.Entity is IWritableOrmDataStructure)
-            {
-                concepts.Add
-                (
-                    new AllPropertiesLoggingInfo()
-                );
-                concepts.Add
-                (
-                   new EntityLoggingInfo { Entity = conceptInfo.Entity }
-                );
-                //concepts.Add
-                //(
-                //   new DenyUserEditPropertyInfo { Property = conceptInfo.Entity. }
+            //if (conceptInfo.Entity is IWritableOrmDataStructure)
+            //{
+            //    concepts.Add
+            //    (
+            //        new AllPropertiesLoggingInfo()
+            //    );
+            //    concepts.Add
+            //    (
+            //       new EntityLoggingInfo { Entity = conceptInfo.Entity }
+            //    );
+            //    //concepts.Add
+            //    //(
+            //    //   new DenyUserEditPropertyInfo { Property = conceptInfo.Entity. }
 
-                //);
-                concepts.Add
-                (
-                    new DateTimePropertyInfo { Name = "CreatedAt", DataStructure = conceptInfo.Entity }
-                );
-                //concepts.Add
-                //(
+            //    //);
+            //    concepts.Add
+            //    (
+            //        new DateTimePropertyInfo { Name = "CreatedAt", DataStructure = conceptInfo.Entity }
+            //    );
+            //    //concepts.Add
+            //    //(
 
-                //    new CreationTimeInfo { Property = conceptInfo.Entity }
-                //);
-            }
+            //    //    new CreationTimeInfo { Property = conceptInfo.Entity }
+            //    //);
+            //}
 
 
             return concepts;
