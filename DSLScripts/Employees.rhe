@@ -12,6 +12,7 @@
 
 		Deactivatable;
 
+
 	}
 
 	Entity Manager
@@ -29,7 +30,7 @@
 
 	Entity Record
 	{
-		MonitoredRecords;
+		
 		Reference EmployeeId EmployeeManagment.Employee;
 
 		DateTime DateOfRecord

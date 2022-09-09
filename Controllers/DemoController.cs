@@ -8,6 +8,11 @@ using Rhetos.Processing;
 using Rhetos.Processing.DefaultCommands;
 using Rhetos.Utilities;
 using System.Collections;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Threading.Tasks;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 [Route("/rest/Book/[action]")]
 public class DemoController : ControllerBase
@@ -108,6 +113,17 @@ public class DemoController : ControllerBase
             book.Title = newTitle;
             _context.Repository.Bookstore.Book.Update(book);
         }
+    }
+
+    [HttpGet]
+    [AllowAnonymous]
+    public async Task Login()
+    {
+        var claimsIdentity = new ClaimsIdentity(new[] { new Claim(ClaimTypes.Name, "SampleUser") }, CookieAuthenticationDefaults.AuthenticationScheme);
+
+        await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
+            new ClaimsPrincipal(claimsIdentity),
+            new AuthenticationProperties() { IsPersistent = true });
     }
 
 

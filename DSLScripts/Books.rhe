@@ -2,7 +2,8 @@
 {
    Entity Book
    {
-
+      MonitoredRecords;
+      InsideCode test;
       ShortString Code
       {
           Unique; 
@@ -15,6 +16,7 @@
       Integer NumberOfPages;
       Reference Author Bookstore.Person;
       Reference Genre GenreManagment.Genre;
+      Reference Employee EmployeeManagment.Employee;
 
       ItemFilter CommonMisspelling 'book => book.Title.Contains("curiousity")';
       InvalidData CommonMisspelling 'It is not allowed to enter misspelled word "curiousity".';
@@ -42,6 +44,35 @@
 
       }';
 
+      RowPermissions{
+
+
+            AllowRead EveryoneCanRead
+            '
+               context=> {
+
+                    return book => book.Employee.ID != null;
+
+               }
+            ';
+
+            AllowWrite EmployeeEdit
+            '
+                context => {
+
+                    Guid employeeId = context.Repository
+                    .EmployeeManagment.Employee.Query()
+                    .Where(e => e.Name == context.UserInfo.UserName)
+                    .Select( e => e.ID)
+                    .SingleOrDefault();
+                    return book => book.Employee.ID == employeeId;
+
+                }
+            ';
+
+
+      }
+
    }
 
    Entity Person;
@@ -62,6 +93,28 @@
         {
             CreationTime; 
         }
+
+         RowPermissions{
+
+             AllowRead EveryoneCanRead 'context =>
+            {
+                return comment => comment.Book.Employee.ID != null;
+            }';
+
+
+            Allow OwnerCanWrite 'context =>
+            {
+                Guid employeeId = context.Repository
+                    .EmployeeManagment.Employee.Query()
+                    .Where(e => e.Name == context.UserInfo.UserName)
+                    .Select(e => e.ID)
+                    .SingleOrDefault();
+
+                return comment => comment.Book.Employee.ID == employeeId;
+            }';
+         }
+
+            InheritFrom Bookstore.Comment.Book;
     }
 
    Entity ChildrensBook
