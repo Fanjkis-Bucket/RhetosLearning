@@ -1,0 +1,91 @@
+﻿Module AssetTracking{
+
+	Entity Asset{
+
+	    ShortString Barcode { Required; }
+		ShortString Name;
+
+		Reference Location { Required; }
+		Reference CostCenter;
+		Reference BussinessUnit;
+
+		Deactivatable;
+
+	}
+
+	Entity Location{
+
+		Shortstring Code { Required; }
+		Shortstring Name;
+
+	}
+
+	Entity CostCenter{
+
+		Shortstring Code { Required; }
+		Shortstring Name;
+
+	}
+
+	Entity CostCenterLocation{
+		
+		Reference CostCenter;
+		Reference Location;
+	}
+
+	Entity AuditHistoryAsset{
+
+		ShortString TypeOfChange;
+		Reference Asset { Required; }
+		DateTime ChangedOccured
+		{
+			DenyUserEdit;
+			CreationTime;
+		}
+	}
+
+	Entity Building{
+
+		Shortstring Code { Required; }
+		Shortstring Name;
+		Reference Site;
+	}
+
+	Entity Site{
+
+		Shortstring Code { Required; }
+		Shortstring Name;
+	}
+
+	Entity BussinessUnit{
+
+		Shortstring Code { Required; }
+		Shortstring Name;
+
+	}
+
+	Entity AssetDeactivated{
+
+		Reference Asset { Required; }
+		Bool Rashod { Required; }
+
+	}
+
+	Entity AssetInTransfer{
+
+		Reference Asset { Required; }
+		Reference LocationFrom Location { Required; }
+		Reference LocationTo Location { Required; }
+
+		DateTime StartOfTransfer
+		{
+			DenyUserEdit;
+			CreationTime;
+		}
+
+		DateTime FinishOfTransfer;
+
+		Integer CostOfTransfer;
+	}
+
+}

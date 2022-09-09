@@ -1,0 +1,47 @@
+﻿Module AssetManagment{
+
+	Entity AssetForService{
+
+		Reference Asset;
+
+		DateTime CreatedOn
+		{
+			DenyUserEdit;
+			CreationTime;
+		}
+
+		Reference EmployeeResposinble EmployeeManagment.Employee;
+	}
+
+	Entity InternalService{
+
+		Reference AssetForService;
+		DateTime CreatedOn
+		{
+			DenyUserEdit;
+			CreationTime;
+		}
+
+		Reference EmployeeAssigned EmployeeManagment.Employee;
+	}
+
+	Entity OutsideService{
+
+		Reference AssetForService;
+		Reference OutsideServicePartners;
+		DateTime CreatedOn
+		{
+			DenyUserEdit;
+			CreationTime;
+		}
+	}
+
+	Entity OutsideServicePartners{
+
+		ShortString Code { Required; }
+		ShortString NamePartner { Required; }
+		ShortString PhoneNumber;
+		ShortString Address;
+
+	}
+}
