@@ -2,7 +2,7 @@
 
 	Entity AssetForService{
 
-		Reference Asset;
+		Reference Asset AssetTracking.Asset;
 
 		DateTime CreatedOn
 		{

@@ -74,8 +74,8 @@
 	Entity AssetInTransfer{
 
 		Reference Asset { Required; }
-		Reference LocationFrom Location { Required; }
-		Reference LocationTo Location { Required; }
+		Reference LocationFrom AssetTracking.Location { Required; }
+		Reference LocationTo AssetTracking.Location { Required; }
 
 		DateTime StartOfTransfer
 		{
