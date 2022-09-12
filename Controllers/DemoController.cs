@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 
-[Route("/rest/Book/[action]")]
+[Route("/test/Book/[action]")]
 public class DemoController : ControllerBase
 {
     private readonly IProcessingEngine processingEngine;

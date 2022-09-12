@@ -88,4 +88,16 @@
 		Integer CostOfTransfer;
 	}
 
+
+	SqlView AssetsCountByLocation
+		"
+			Select loc.Name, Count(ast.Id) as 'Number of Assets' ,Count(cos.Id) as 'Number of Cost Center'
+			From AssetTracking.Asset ast
+			JOIN CostCenter cos ON cos.Id = ast.CostCenterId
+			JOIN Location loc ON loc.Id = ast.LocationID
+			Group by loc.Name;
+		"
+		{
+			AutodetectSqlDependencies;
+		}
 }

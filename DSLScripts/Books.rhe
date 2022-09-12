@@ -3,7 +3,7 @@
    Entity Book
    {
       MonitoredRecords;
-      InsideCode test;
+      InsideCode Barcode;
       ShortString Code
       {
           Unique; 
@@ -112,6 +112,8 @@
 
                 return comment => comment.Book.Employee.ID == employeeId;
             }';
+
+            InheritFrom Bookstore.Comment.Book;
          }
     }
 

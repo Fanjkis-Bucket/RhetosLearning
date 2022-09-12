@@ -27,7 +27,6 @@ builder.Services.AddSwaggerGen(o =>
     {
          o.CustomSchemaIds(type => type.ToString());
          o.SwaggerDoc("rhetos", new OpenApiInfo { Title = "Rhetos REST API", Version = "v1" });
-         o.SwaggerDoc("Common", new OpenApiInfo { Title = "Common REST API", Version = "v1" });
     });
 builder.Services.AddRhetosHost(ConfigureRhetosHostBuilder)
     .AddAspNetCoreIdentityUser()
@@ -47,7 +46,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/rhetos/swagger.json", "Rhetos REST API");
-        c.SwaggerEndpoint("/swagger/Common/swagger.json", "Common REST API");
     });
 }
 
