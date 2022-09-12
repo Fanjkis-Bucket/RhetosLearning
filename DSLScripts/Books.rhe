@@ -113,8 +113,6 @@
                 return comment => comment.Book.Employee.ID == employeeId;
             }';
          }
-
-            InheritFrom Bookstore.Comment.Book;
     }
 
    Entity ChildrensBook
